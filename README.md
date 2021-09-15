@@ -1,2 +1,2 @@
 # CoffeeDog
-Sniffing for coffee data
+Sniffing ID cards for coffee data. Sniff sniff.

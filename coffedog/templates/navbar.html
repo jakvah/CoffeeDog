@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS and Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    
+    <!--Moment js javascript (for plotting time on x-axis) MUST BE INCLUDED BEFORE CHART JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Chart.js javascript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+   
+    <!-- Logo Icon -->
+    <link rel="icon" href="{{ url_for('static',filename='data_logo.png') }}">
+  </head>
+  <body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- Bootstrap uses slim build of jquery, which does not have ajax. Using ajax from google -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  
+  </body>
+
+  <!-- Warn user if he/she is using IE -->
+<script type="text/javascript">
+    /* Sample function that returns boolean in case the browser is Internet Explorer*/
+  function isIE() {
+    ua = navigator.userAgent;
+    /* MSIE used to detect old browsers and Trident used to newer ones*/
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+    
+    return is_ie; 
+  }
+  /* Create an alert to show if the browser is IE or not */
+  if (isIE()){
+      alert('Vi har oppdaget at du bruker Internet Explorer som nettleser. Denne nettsiden benytter funksjoner som ikke støttes av denne nettleseren. Vi anbefaler deg å bytte til en annen nettleser som f.eks Google Chrome eller Mozilla Firefox for den fulle brukeropplevelsen.');
+  }
+</script>
+
+
+<!-- Navbar content begins -->
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+    <a class="navbar-brand" href="/"><!-- Logo Image -->
+      <img src="{{ url_for('static',filename='data_logo.png') }}" width="45" height="35" alt="" class="d-inline-block align-middle mr-2">
+      <!-- Logo Text -->
+      <span class="font-weight-bold">CoffeeDog</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {{navbar_status[0]}}">
+          <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item {{navbar_status[1]}}">
+            <a class="nav-link" href="/">Leaderboard <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item {{navbar_status[2]}}">
+            <a class="nav-link" href="/">Data highlights <span class="sr-only"></span></a>
+          </li>      
+
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+ 
+</body>
+
+<!-- Navbar content ends-->
+
+<!-- Main content of page (not navbar or footer)-->
+{% block body %} {% endblock %}
+
+
+<!-- Main content ends-->
+
+</div>
+</html>

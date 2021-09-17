@@ -1,3 +1,5 @@
+import 'package:coffee_dog/mock_repo.dart';
+
 import 'mypage.dart';
 import 'package:flutter/material.dart';
 import 'leaderboard.dart';
@@ -40,8 +42,11 @@ class CoffeDog extends StatelessWidget {
         child: Scaffold(
           body: TabBarView(
             children: [
-              MyHomePage(title: "Min Profil"),
-              LeaderBoardPage(),
+              MyHomePage(
+                title: "Min Profil",
+                repo: MockRepo(),
+              ),
+              LeaderBoardPage(MockRepo()),
               CoffeBrakePage()
             ],
           ),

@@ -15,3 +15,11 @@ Sniffing ID cards for coffee data. Sniff sniff.
 \_____________________/            
 
 ```
+
+
+## Setup
+
+From the top directory, run with 
+```
+py -m coffedog.web_app
+```

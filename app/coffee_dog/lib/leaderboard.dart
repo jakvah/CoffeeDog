@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 
+class ScoreObject {
+  final String name;
+  final String id;
+  final String image;
+  final int score;
+  final int movement;
+
+  ScoreObject(this.name, this.id, this.image, this.score, this.movement);
+}
+
 class LeaderBoardPage extends StatefulWidget {
-  final Map data;
+  final List<ScoreObject> data;
   LeaderBoardPage(this.data);
   @override
   State<StatefulWidget> createState() => _LeaderBoardState();
 }
 
 class _LeaderBoardState extends State<LeaderBoardPage> {
-
   List<DataColumn> getDataColumns() {
-    
-  widget.data.forEach((key, value) {
-    
-  })
-  return [DataColumn(label: label)]
+    List<DataColumn> columns = [];
+    widget.data.map((e) => {columns.add(DataColumn(label: Text(e.name)))});
+    return columns;
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

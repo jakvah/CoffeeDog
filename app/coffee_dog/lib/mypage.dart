@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+class MyDog {
+  final String id;
+  final String name;
+  final List<String> friends;
+  final int score;
+
+  MyDog(this.id, this.name, this.friends, this.score);
+}
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 

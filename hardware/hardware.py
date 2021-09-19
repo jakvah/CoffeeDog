@@ -1,16 +1,17 @@
 import rdm6300
 import time
 import datetime
-from gpiozero import TonalBuzzer
+from gpiozero import TonalBuzzer, LED
 from gpiozero.tones import Tone
 
 
 
-
+blue_led = LED(18)
 b = TonalBuzzer(23)
+red_led = LED(24)
 queue = {}
 
-VERSION = 0.1
+VERSION = 0.2
 COFFEE_TIMEOUT = 60 # Time to wait until you can dog another coffee
 
 def send_coffee_data(id,timestamp):
@@ -62,19 +63,23 @@ def check_dict(card_id):
 # read_card() - reads a card and sends data to website if valid.
 def read_card():
     reader = rdm6300.Reader('/dev/ttyS0')
-    card = reader.read(10) 
+    card = reader.read(10)
     if card:
         print("---------------")
         print("Card detected. ID: " + str(card.value))
         reader.stop()
         if card.is_valid:
                 if (check_dict(str(card.value))):
+                    blue_led.off()
                     play_tune(card.value)
                     send_coffee_data(card.value,get_timestamp())
                     print("---------------")
                 else:
+                    blue_led.off()
+                    red_led.on()
                     play_declined()
                     time.sleep(1)
+                    red_led.off()
                     print("---------------")
 
 # clean_dict() - periodically cleans out old cards from the dictionary. 
@@ -98,6 +103,7 @@ print ("---------------------")
 print("       ▄      ▄  \n      ▐▒▀▄▄▄▄▀▒▌   \n    ▄▀▒▒▒▒▒▒▒▒▓▀▄  sniff\n  ▄▀░█░░░░█░░▒▒▒▐   sniff - hunden Sverre\n  ▌░░░░░░░░░░░▒▒▐  \n ▐▒░██▒▒░░░░░░░▒▐  \n ▐▒░▓▓▒▒▒░░░░░░▄▀  \n  ▀▄░▀▀▀▀░░░░▄▀     \n    ▀▀▄▄▄▄▄▀▀       ")
 print("----------------------")
 while True:
+    blue_led.on()
     read_card()
     clean_dict()
 

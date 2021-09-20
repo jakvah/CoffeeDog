@@ -79,80 +79,77 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("My profile"),
-        ),
         body: SmartRefresher(
-          controller: this._refreshController,
-          enablePullDown: true,
-          enablePullUp: false,
-          onRefresh: this._onRefresh,
-          child: Column(
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: 'Hei, ',
-                  style: Theme.of(context).textTheme.headline3,
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: this._myName + "!",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(20)),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Du har drukket totalt',
-                    ),
-                    Text(
-                      '$_coffeCups',
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                    Text("antall kopper kaffe"),
-                    Padding(padding: EdgeInsets.all(20)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Center(
-                          child: Column(
-                            children: [
-                              Text("Denne uken har du drukket: "),
-                              Text(
-                                '$_coffeCups',
-                                style: Theme.of(context).textTheme.headline3,
-                              ),
-                              Text("antall kopper kaffe"),
-                            ],
-                          ),
-                        ),
-                        Center(
-                            child: Column(
-                          children: [
-                            Text("Forrige uke drakk du: "),
-                            Text(
-                              '$_coffeCups',
-                              style: Theme.of(context).textTheme.headline3,
-                            ),
-                            Text("antall kopper kaffe"),
-                          ],
-                        ))
-                      ],
-                    ),
-                    Padding(padding: EdgeInsets.all(20)),
-                    Text("Venner som har pause: "),
-                    Text(
-                      this.extractFriends(),
-                      style: Theme.of(context).textTheme.headline6,
-                    )
-                  ],
-                ),
-              ),
-            ],
+      controller: this._refreshController,
+      enablePullDown: true,
+      enablePullUp: false,
+      onRefresh: this._onRefresh,
+      child: Column(
+        children: [
+          RichText(
+            text: TextSpan(
+              text: 'Hei, ',
+              style: Theme.of(context).textTheme.headline3,
+              children: <TextSpan>[
+                TextSpan(
+                    text: this._myName + "!",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
-        ));
+          Padding(padding: EdgeInsets.all(20)),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Du har drukket totalt',
+                ),
+                Text(
+                  '$_coffeCups',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                Text("antall kopper kaffe"),
+                Padding(padding: EdgeInsets.all(20)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          Text("Denne uken har du drukket: "),
+                          Text(
+                            '$_coffeCups',
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                          Text("antall kopper kaffe"),
+                        ],
+                      ),
+                    ),
+                    Center(
+                        child: Column(
+                      children: [
+                        Text("Forrige uke drakk du: "),
+                        Text(
+                          '$_coffeCups',
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                        Text("antall kopper kaffe"),
+                      ],
+                    ))
+                  ],
+                ),
+                Padding(padding: EdgeInsets.all(20)),
+                Text("Venner som har pause: "),
+                Text(
+                  this.extractFriends(),
+                  style: Theme.of(context).textTheme.headline6,
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }

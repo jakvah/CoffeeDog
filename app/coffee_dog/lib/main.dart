@@ -7,6 +7,7 @@ import 'leaderboard.dart';
 import 'coffebrake.dart';
 import 'dart:ui';
 import 'utils/constants.dart';
+import 'TabController.dart';
 
 void main() {
   runApp(CoffeDog());
@@ -22,27 +23,28 @@ class CoffeDog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CoffeeDog',
-      theme: ThemeData(
-        primaryColor: MAIN_COLOR,
-        scaffoldBackgroundColor: GREY_COLOR,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: GoogleFonts.openSansTextTheme(),
-      ),
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          body: TabBarView(
-            children: [
-              MyHomePage(repo: MockRepo()),
-              LeaderBoardPage(
-                repo: MockRepo(),
-              ),
-              CoffeBrakePage()
-            ],
-          ),
+        title: 'CoffeeDog',
+        theme: ThemeData(
+          primaryColor: MAIN_COLOR,
+          scaffoldBackgroundColor: GREY_COLOR,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          textTheme: GoogleFonts.openSansTextTheme(),
         ),
-      ),
-    );
+        home: CDTabController()
+        // home: DefaultTabController(
+        //   length: 3,
+        //   child: Scaffold(
+        //     body: TabBarView(
+        //       children: [
+        //         MyHomePage(repo: MockRepo()),
+        //         LeaderBoardPage(
+        //           repo: MockRepo(),
+        //         ),
+        //         CDTabController()
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        );
   }
 }

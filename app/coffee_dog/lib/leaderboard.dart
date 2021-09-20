@@ -1,3 +1,4 @@
+import 'package:coffee_dog/LeaderBoardEntry.dart';
 import 'package:coffee_dog/mock_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -46,10 +47,19 @@ class LeaderBoardPage extends StatefulWidget {
 
 class _LeaderBoardState extends State<LeaderBoardPage> {
   List<ScoreObject> _data = [];
+  double _scrollPosition = 0;
+  ScrollController _scrollController = ScrollController();
+
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
 
-  _LeaderBoardState(List leaderboard);
+  _LeaderBoardState(List leaderboard) {
+    this._scrollController.addListener(() {
+      setState(() {
+        this._scrollPosition = _scrollController.position.pixels;
+      });
+    });
+  }
 
   List<DataRow> getDataRows() {
     List<DataRow> columns = this
@@ -159,52 +169,131 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
     double height = MediaQuery.of(context).size.height;
     // TODO: implement build
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Leaderboard"),
-        ),
         body: SmartRefresher(
             enablePullDown: true,
             enablePullUp: false,
             controller: _refreshController,
+            scrollController: _scrollController,
             onRefresh: this.replaceData,
-            child: Column(
-              children: [
-                Padding(padding: EdgeInsets.all(20)),
-                Container(
-                  child: Row(
-                    children: makePodium(width, height),
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(padding: EdgeInsets.all(20)),
+                  Container(
+                    child: Row(
+                      children: makePodium(width, height),
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    ),
                   ),
-                ),
-                DataTable(
-                  columns: const <DataColumn>[
-                    DataColumn(
-                      label: Text('#',
-                          style: TextStyle(fontStyle: FontStyle.italic)),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Name',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'Score',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        '+/- last week',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ],
-                  rows: getDataRows(),
-                ),
-              ],
+                  Center(
+                    child: Column(children: [
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                      LeaderBoardEntry(
+                          image: "image",
+                          name: "name",
+                          score: 100,
+                          movement: 1),
+                    ]),
+                  )
+                  // DataTable(
+                  //   columns: const <DataColumn>[
+                  //     DataColumn(
+                  //       label: Text('#',
+                  //           style: TextStyle(fontStyle: FontStyle.italic)),
+                  //     ),
+                  //     DataColumn(
+                  //       label: Text(
+                  //         'Name',
+                  //         style: TextStyle(fontStyle: FontStyle.italic),
+                  //       ),
+                  //     ),
+                  //     DataColumn(
+                  //       label: Text(
+                  //         'Score',
+                  //         style: TextStyle(fontStyle: FontStyle.italic),
+                  //       ),
+                  //     ),
+                  //     DataColumn(
+                  //       label: Text(
+                  //         '+/- last week',
+                  //         style: TextStyle(fontStyle: FontStyle.italic),
+                  //       ),
+                  //     ),
+                  //   ],
+                  //   rows: getDataRows(),
+                  // ),
+                ],
+              ),
             )));
   }
 }

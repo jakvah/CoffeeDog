@@ -14,16 +14,24 @@ class MockRepo {
         {
           "name": "Kristian",
           "id": "12345sdacsd",
-          "score": 12,
+          "score": 17,
           "rank": 1,
           "image": "lol.png",
           "movement": 2
         },
         {
+          "name": "Wilhelm",
+          "id": "12345sd2qacsd",
+          "score": 14,
+          "rank": 2,
+          "image": "lol.png",
+          "movement": -1
+        },
+        {
           "name": "Jakob",
           "id": "12345sd2acsd",
           "score": 11,
-          "rank": 2,
+          "rank": 3,
           "image": "lol.png",
           "movement": -1
         },
@@ -31,7 +39,7 @@ class MockRepo {
           "name": "Matias",
           "id": "12345sd22acsd",
           "score": 1,
-          "rank": 3,
+          "rank": 4,
           "image": "lol.png",
           "movement": 0
         }

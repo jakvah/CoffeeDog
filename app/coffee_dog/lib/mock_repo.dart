@@ -26,12 +26,24 @@ class MockRepo {
           "rank": 2,
           "image": "lol.png",
           "movement": -1
+        },
+        {
+          "name": "Matias",
+          "id": "12345sd22acsd",
+          "score": 1,
+          "rank": 3,
+          "image": "lol.png",
+          "movement": 0
         }
       ]
     };
-    List<ScoreObject> scoreObjects = json['scores'].map((value) {
-      ScoreObject.fromJson(value);
-    });
+
+    List<ScoreObject> scoreObjects = [];
+    if (json.containsKey("scores")) {
+      json['scores'].asMap().forEach((_, value) {
+        scoreObjects.add(ScoreObject.fromJson(value));
+      });
+    }
     return scoreObjects;
   }
 }

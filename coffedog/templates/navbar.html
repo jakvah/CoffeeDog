@@ -66,14 +66,74 @@
           </li>
           <li class="nav-item {{navbar_status[2]}}">
             <a class="nav-link" href="/error">Data highlights <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">API</a>
           </li>      
 
       </ul>
+      <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#modal_work" type="submit">Inndogging</button>
+       <a class="nav-link" href="https://github.com/jakvah/CoffeeDog"><i class="fab fa-github fa-lg"></i></a>
     </div>
   </div>
   </nav>
 
- 
+   <!-- Modal for adding match -->
+   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal_work">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Register student card</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidd en="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <p>Register your NTNU student card to get started with your CoffeeDogging experience.</p>
+          <p><i>Note that registering a card might take a couple of seconds. Be patient!</i></p>
+          <form action="/add_card" method="POST">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Card ID</label>
+              <input name="card_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter card ID" required>
+              <small id="emailHelp" class="form-text text-muted">This is the <strong><i>cardno</i></strong> parameter found at <a href="https://api.ntnu.no/me">api.ntnu.no/me</a> (do CTRL + F and type "cardno")</small>
+              
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Card name</label>
+              <input name="card_name" class="form-control" id="exampleInputPassword1" placeholder="Name associated with card">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+              <label class="form-check-label" for="exampleCheck1" required>I'm not a robot</label>
+            </div>
+            <button onclick="showDiv()" type="submit" class="btn btn-success">Register card</button>
+          </form>
+          <div id="hiddenMeme" style="display:none;" class="container">
+                          <!-- 2 -->
+
+              <div class="loader loader--style2" title="1">
+                <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                  <animateTransform attributeType="xml"
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 25 25"
+                    to="360 25 25"
+                    dur="0.6s"
+                    repeatCount="indefinite"/>
+                  </path>
+                </svg>
+                
+              </div>
+              <h5 style="padding-top: 1em;display: inline;">Adding match! While waiting, here is meme!</h5>
+
+            <img src="https://media.discordapp.net/attachments/629733041199251495/786296489877307482/10_man.png?width=690&height=675" img-fluid alt="10manMeme">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 </body>
 
 <!-- Navbar content ends-->

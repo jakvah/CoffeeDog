@@ -1,30 +1,11 @@
-import 'package:coffee_dog/LeaderBoardEntry.dart';
-import 'package:coffee_dog/mock_repo.dart';
-import 'package:coffee_dog/repo.dart';
+import 'package:coffee_dog/leaderboard/LeaderBoardEntry.dart';
+import 'package:coffee_dog/repo/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'utils/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-class ScoreObject {
-  final String name;
-  final String id;
-  final String image;
-  final int score;
-  final int movement;
-  final int rank;
-
-  ScoreObject(
-      this.name, this.id, this.image, this.score, this.movement, this.rank);
-
-  ScoreObject.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        id = "${json['id']}",
-        image = "json['image']",
-        score = json['score'],
-        movement = 1,
-        rank = json["rank"];
-}
+import '../utils/constants.dart';
+// import 'package:coffee_dog/mock_repo.dart';
+import 'score.dart';
 
 // ignore: must_be_immutable
 class LeaderBoardPage extends StatefulWidget {
@@ -56,20 +37,20 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
 
   _LeaderBoardState(List leaderboard);
 
-  List<DataRow> getDataRows() {
-    List<DataRow> columns = this
-        ._data
-        .map((e) {
-          return DataRow(cells: <DataCell>[
-            DataCell(Text("${e.rank}")),
-            DataCell(Text(e.name)),
-            DataCell(Text("${e.score}")),
-            DataCell(Text("${e.movement}")),
-          ]);
-        })
-        .cast<DataRow>()
-        .toList();
-    return columns;
+  List<LeaderBoardEntry> getLeaderBoardLosers() {
+    if (this._data.length < 3) {
+      return [];
+    }
+    var losers = this._data.sublist(3);
+    List<LeaderBoardEntry> rows = losers.map((e) {
+      return LeaderBoardEntry(
+          image: "image",
+          name: e.name,
+          score: e.score,
+          movement: 0,
+          rank: e.rank);
+    }).toList();
+    return rows;
   }
 
   List<Container> makePodium(double width, double height) {
@@ -197,96 +178,7 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
                   Center(
                     child: Column(children: [
                       Padding(padding: EdgeInsets.all(10)),
-                      LeaderBoardEntry(
-                          rank: 1,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 2,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 3,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 4,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 5,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 6,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 7,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 8,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 9,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 10,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 11,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 12,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 13,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 14,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
-                      LeaderBoardEntry(
-                          rank: 15,
-                          image: "image",
-                          name: "name",
-                          score: 100,
-                          movement: 1),
+                      ...getLeaderBoardLosers()
                     ]),
                   )
                 ],

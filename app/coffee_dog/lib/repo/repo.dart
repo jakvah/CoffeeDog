@@ -1,7 +1,7 @@
-import 'package:coffee_dog/leaderboard.dart';
-import 'package:coffee_dog/mypage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import '../leaderboard/score.dart';
 
 class Repo {
   Future<dynamic> fetch(String url) async {

@@ -1,13 +1,13 @@
-import 'package:coffee_dog/mock_repo.dart';
+import 'package:coffee_dog/repo/mock_repo.dart';
+import 'package:coffee_dog/repo/repo.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'mypage.dart';
 import 'package:flutter/material.dart';
-import 'leaderboard.dart';
-import 'coffebrake.dart';
+import 'leaderboard/leaderboard.dart';
 import 'dart:ui';
 import 'utils/constants.dart';
-import 'TabController.dart';
+import 'widgets/TabController.dart';
 
 void main() {
   runApp(CoffeDog());
@@ -30,6 +30,11 @@ class CoffeDog extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.openSansTextTheme(),
         ),
-        home: CDTabController());
+        home: CDTabController(
+          home: MyHomePage(repo: MockRepo()),
+          leaderBoard: LeaderBoardPage(
+            repo: Repo(),
+          ),
+        ));
   }
 }

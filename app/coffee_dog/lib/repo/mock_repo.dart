@@ -1,7 +1,6 @@
-import 'package:coffee_dog/leaderboard.dart';
+import 'package:coffee_dog/leaderboard/leaderboard.dart';
 import 'package:coffee_dog/mypage.dart';
-import 'package:flutter/material.dart';
-import 'leaderboard.dart';
+import '../leaderboard/score.dart';
 
 class MockRepo {
   Future<MyDog> fetchDog() async {

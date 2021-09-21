@@ -1,19 +1,21 @@
-import 'package:coffee_dog/mock_repo.dart';
-import 'package:coffee_dog/repo.dart';
+import 'package:coffee_dog/repo/mock_repo.dart';
+import 'package:coffee_dog/repo/repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'leaderboard.dart';
-import 'mypage.dart';
-import 'utils/constants.dart';
+import '../leaderboard/leaderboard.dart';
+import '../mypage.dart';
+import '../utils/constants.dart';
 
 enum TabStates { profile, leaderboard }
 
+// ignore: must_be_immutable
 class CDTabController extends StatefulWidget {
   TabStates state = TabStates.profile;
-  final MyHomePage home = MyHomePage(repo: MockRepo());
-  final LeaderBoardPage leaderBoard = LeaderBoardPage(
-    repo: Repo(),
-  );
+  final MyHomePage home;
+  final LeaderBoardPage leaderBoard;
+
+  CDTabController({Key? key, required this.home, required this.leaderBoard})
+      : super(key: key);
   State<StatefulWidget> createState() => _CDTabControllerState(state);
 }
 
@@ -41,7 +43,6 @@ class _CDTabControllerState extends State<CDTabController> {
       leaderboardColor = MAIN_COLOR;
       leaderboardTextColor = WHITE_COLOR;
     }
-    // TODO: implement build
     return Scaffold(
         backgroundColor: GREY_COLOR,
         body: Column(

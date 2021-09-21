@@ -1,5 +1,6 @@
 import 'package:coffee_dog/LeaderBoardEntry.dart';
 import 'package:coffee_dog/mock_repo.dart';
+import 'package:coffee_dog/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'utils/constants.dart';
@@ -18,16 +19,16 @@ class ScoreObject {
 
   ScoreObject.fromJson(Map<String, dynamic> json)
       : name = json['name'],
-        id = json['id'],
-        image = json['image'],
+        id = "${json['id']}",
+        image = "json['image']",
         score = json['score'],
-        movement = json['movement'],
+        movement = 1,
         rank = json["rank"];
 }
 
 // ignore: must_be_immutable
 class LeaderBoardPage extends StatefulWidget {
-  final MockRepo repo;
+  final Repo repo;
 
   List<ScoreObject> leaderboard = [];
   LeaderBoardPage({

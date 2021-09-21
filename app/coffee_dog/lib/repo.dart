@@ -4,11 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Repo {
-  final http.Client client;
-
-  Repo(this.client);
   Future<dynamic> fetch(String url) async {
-    final response = await this.client.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -21,20 +18,23 @@ class Repo {
     }
   }
 
-  Future<MyDog> fetchDog(http.Client client) async {
-    var response = await fetch("");
-    return MyDog.fromJson(response);
-  }
+  // Future<MyDog> fetchDog() async {
+  //   var response = await fetch("");
+  //   return MyDog.fromJson(response);
+  // }
 
-  Future<List<ScoreObject>> fetchLeaderBoard(http.Client client) async {
-    var response = await fetch("");
+  Future<List<ScoreObject>> fetchLeaderBoard() async {
+    var response =
+        await fetch("http://jakvah.pythonanywhere.com/get_leaderboard");
     if (response == null) {
       return [];
     } else {
-      Map<String, dynamic> json = response;
-      List<ScoreObject> scoreObjects = json['scores'].map((value) {
-        ScoreObject.fromJson(value);
-      });
+      List<ScoreObject> scoreObjects = [];
+      if (response.containsKey("scores")) {
+        response['scores'].asMap().forEach((_, value) {
+          scoreObjects.add(ScoreObject.fromJson(value));
+        });
+      }
       return scoreObjects;
     }
   }

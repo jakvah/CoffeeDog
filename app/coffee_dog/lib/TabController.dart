@@ -1,4 +1,5 @@
 import 'package:coffee_dog/mock_repo.dart';
+import 'package:coffee_dog/repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'leaderboard.dart';
@@ -11,7 +12,7 @@ class CDTabController extends StatefulWidget {
   TabStates state = TabStates.profile;
   final MyHomePage home = MyHomePage(repo: MockRepo());
   final LeaderBoardPage leaderBoard = LeaderBoardPage(
-    repo: MockRepo(),
+    repo: Repo(),
   );
   State<StatefulWidget> createState() => _CDTabControllerState(state);
 }
@@ -20,13 +21,7 @@ class _CDTabControllerState extends State<CDTabController> {
   TabStates _state = TabStates.profile;
   final PageController _pageController = PageController();
 
-  _CDTabControllerState(TabStates state) : this._state = state {
-    // _pageController.addListener(() {
-    //   setState(() {
-    //     _state = TabStates.values[_pageController.page!.toInt()];
-    //   });
-    // });
-  }
+  _CDTabControllerState(TabStates state) : this._state = state;
 
   @override
   void dispose() {

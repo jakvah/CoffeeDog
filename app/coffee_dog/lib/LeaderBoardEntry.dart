@@ -6,6 +6,7 @@ class LeaderBoardEntry extends StatelessWidget {
   final String image;
   final String name;
   final int score;
+  final int rank;
   final int movement;
 
   const LeaderBoardEntry(
@@ -13,7 +14,8 @@ class LeaderBoardEntry extends StatelessWidget {
       required this.image,
       required this.name,
       required this.score,
-      required this.movement})
+      required this.movement,
+      required this.rank})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -21,18 +23,32 @@ class LeaderBoardEntry extends StatelessWidget {
     // TODO: implement build
     return Row(
       children: [
-        Padding(padding: EdgeInsets.all(20)),
+        Padding(padding: EdgeInsets.fromLTRB(width * 0.0, 0, 0, 0)),
+        Container(
+          width: Theme.of(context).textTheme.headline4!.fontSize!,
+          height: Theme.of(context).textTheme.headline4!.fontSize!,
+          decoration: BoxDecoration(
+              // color: MAIN_COLOR,
+              borderRadius: BorderRadius.circular(
+                  Theme.of(context).textTheme.headline6!.fontSize!)),
+          child: Text(
+            "${this.rank}",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ),
+        Padding(padding: EdgeInsets.fromLTRB(width * 0.02, 0, 0, 0)),
         Stack(
           children: [
             Container(
-              width: width * 0.6,
-              margin: EdgeInsets.fromLTRB(0, 25, 0, 25),
+              width: width * 0.8,
+              margin: EdgeInsets.fromLTRB(0, 15, 0, 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      Padding(padding: EdgeInsets.fromLTRB(50, 10, 20, 10)),
+                      Padding(padding: EdgeInsets.fromLTRB(50, 15, 20, 15)),
                       Text("name",
                           style: TextStyle(
                             color: GREY_COLOR,
@@ -49,7 +65,7 @@ class LeaderBoardEntry extends StatelessWidget {
                             fontSize:
                                 Theme.of(context).textTheme.headline6!.fontSize,
                           )),
-                      Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 10)),
+                      Padding(padding: EdgeInsets.fromLTRB(50, 15, 20, 15)),
                     ],
                   ),
                 ],
@@ -58,7 +74,7 @@ class LeaderBoardEntry extends StatelessWidget {
                   color: SECONDARY_COLOR,
                   borderRadius: BorderRadius.all(Radius.circular(40))),
             ),
-            Positioned(left: 0, top: 12.5, child: RoundImage("url")),
+            Positioned(left: 0, top: 4, child: RoundImage("url")),
           ],
         ),
       ],

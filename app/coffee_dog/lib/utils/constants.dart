@@ -8,3 +8,6 @@ const THIRD_COLOR = Color.fromRGBO(249, 87, 56, 1);
 const WHITE_COLOR = Colors.white;
 const BLACK_COLOR = Color.fromRGBO(48, 47, 48, 1);
 const GREY_COLOR = Color.fromRGBO(247, 247, 249, 1);
+const DUTCH_WHITE = Color.fromRGBO(232, 221, 161, 1);
+const SILVER_ISH = Color.fromRGBO(192, 192, 192, 0.4);
+const BRONZE_ISH = Color.fromRGBO(100, 50, 20, 0.3);

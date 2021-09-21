@@ -30,21 +30,6 @@ class CoffeDog extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.openSansTextTheme(),
         ),
-        home: CDTabController()
-        // home: DefaultTabController(
-        //   length: 3,
-        //   child: Scaffold(
-        //     body: TabBarView(
-        //       children: [
-        //         MyHomePage(repo: MockRepo()),
-        //         LeaderBoardPage(
-        //           repo: MockRepo(),
-        //         ),
-        //         CDTabController()
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        );
+        home: CDTabController());
   }
 }

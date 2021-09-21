@@ -51,8 +51,9 @@ class _CDTabControllerState extends State<CDTabController> {
         backgroundColor: GREY_COLOR,
         body: Column(
           children: [
+            Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
             Text("CoffeeDog",
-                style: TextStyle(fontSize: 30, color: MAIN_COLOR)),
+                style: TextStyle(fontSize: 40, color: MAIN_COLOR)),
             Padding(padding: EdgeInsets.all(5)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -3,6 +3,7 @@ import 'package:coffee_dog/mock_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'utils/constants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ScoreObject {
   final String name;
@@ -47,19 +48,12 @@ class LeaderBoardPage extends StatefulWidget {
 
 class _LeaderBoardState extends State<LeaderBoardPage> {
   List<ScoreObject> _data = [];
-  double _scrollPosition = 0;
   ScrollController _scrollController = ScrollController();
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
 
-  _LeaderBoardState(List leaderboard) {
-    this._scrollController.addListener(() {
-      setState(() {
-        this._scrollPosition = _scrollController.position.pixels;
-      });
-    });
-  }
+  _LeaderBoardState(List leaderboard);
 
   List<DataRow> getDataRows() {
     List<DataRow> columns = this
@@ -78,13 +72,16 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
   }
 
   List<Container> makePodium(double width, double height) {
+    final String assetName = './svgs/medal.svg';
+
     List<Container> contList = [];
     // Have a first place
     if (this._data.length > 0) {
       contList.add(Container(
         decoration: BoxDecoration(
+            color: DUTCH_WHITE,
             border: Border.all(
-              color: SECONDARY_COLOR,
+              color: DUTCH_WHITE,
             ),
             borderRadius: BorderRadius.all(Radius.circular(20))),
         width: width / 4,
@@ -96,6 +93,15 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
           ),
           Text("${this._data.elementAt(0).name}"),
           Text("${this._data.elementAt(0).score}"),
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
+            child: SvgPicture.asset(
+              assetName,
+              height: 30,
+              width: 30,
+            ),
+            color: Colors.transparent,
+          ),
         ]),
       ));
     }
@@ -105,8 +111,9 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
           0,
           Container(
             decoration: BoxDecoration(
+                color: SILVER_ISH,
                 border: Border.all(
-                  color: SECONDARY_COLOR,
+                  color: SILVER_ISH,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             width: width / 4,
@@ -132,8 +139,9 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
     if (this._data.length > 2) {
       contList.add(Container(
         decoration: BoxDecoration(
+            color: BRONZE_ISH,
             border: Border.all(
-              color: SECONDARY_COLOR,
+              color: BRONZE_ISH,
             ),
             borderRadius: BorderRadius.all(Radius.circular(20))),
         width: width / 4,
@@ -167,7 +175,6 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    // TODO: implement build
     return Scaffold(
         body: SmartRefresher(
             enablePullDown: true,
@@ -178,7 +185,7 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(padding: EdgeInsets.all(20)),
+                  Padding(padding: EdgeInsets.all(10)),
                   Container(
                     child: Row(
                       children: makePodium(width, height),
@@ -188,110 +195,99 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
                   ),
                   Center(
                     child: Column(children: [
+                      Padding(padding: EdgeInsets.all(10)),
                       LeaderBoardEntry(
+                          rank: 1,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 2,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 3,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 4,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 5,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 6,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 7,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 8,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 9,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 10,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 11,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 12,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 13,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 14,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                       LeaderBoardEntry(
+                          rank: 15,
                           image: "image",
                           name: "name",
                           score: 100,
                           movement: 1),
                     ]),
                   )
-                  // DataTable(
-                  //   columns: const <DataColumn>[
-                  //     DataColumn(
-                  //       label: Text('#',
-                  //           style: TextStyle(fontStyle: FontStyle.italic)),
-                  //     ),
-                  //     DataColumn(
-                  //       label: Text(
-                  //         'Name',
-                  //         style: TextStyle(fontStyle: FontStyle.italic),
-                  //       ),
-                  //     ),
-                  //     DataColumn(
-                  //       label: Text(
-                  //         'Score',
-                  //         style: TextStyle(fontStyle: FontStyle.italic),
-                  //       ),
-                  //     ),
-                  //     DataColumn(
-                  //       label: Text(
-                  //         '+/- last week',
-                  //         style: TextStyle(fontStyle: FontStyle.italic),
-                  //       ),
-                  //     ),
-                  //   ],
-                  //   rows: getDataRows(),
-                  // ),
                 ],
               ),
             )));

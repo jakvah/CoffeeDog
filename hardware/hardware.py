@@ -11,8 +11,13 @@ b = TonalBuzzer(23)
 red_led = LED(24)
 queue = {}
 
-VERSION = 0.2
-COFFEE_TIMEOUT = 60 # Time to wait until you can dog another coffee
+# ---------- SETUP ----------#
+
+VERSION = 0.3
+COFFEE_TIMEOUT = 5 # Time to wait until you can dog another coffee
+
+
+# ---------------------------#
 
 def send_coffee_data(id,timestamp):
     import requests
@@ -23,11 +28,24 @@ def send_coffee_data(id,timestamp):
     print (str(now.hour) + ":" + str(now.minute) + ":" + str(now.second) + " - " + r.text)
 
 def play_tune(cardvalue):
-    customTone = (str(cardvalue)[-4:])
-    for number in customTone:
-        b.play(Tone(int(220+int(number)*66)))
-        time.sleep(0.1)
-    time.sleep(0.1)
+    #customTone = (str(cardvalue)[-4:])
+    #for number in customTone:
+    #    b.play(Tone(int(220+int(number)*66)))
+    #    time.sleep(0.1)
+    b.play(Tone(int(220+66*2)))
+    time.sleep(0.05)
+    b.play(Tone(int(220+66*4)))
+    time.sleep(0.05)
+    b.play(Tone(int(220+66*6)))
+    time.sleep(0.05)
+    b.play(Tone(int(220+66*8)))
+    time.sleep(0.05)
+    b.play(Tone(int(220+66*6)))
+    time.sleep(0.05)
+    b.play(Tone(int(220+66*4)))
+    time.sleep(0.05)
+    b.play(Tone(int(220+66*2)))
+    time.sleep(0.05)
     b.stop()
 
 def play_declined():
@@ -52,12 +70,10 @@ def check_dict(card_id):
             print("Litegranne snøgg, please wait " + str(COFFEE_TIMEOUT - (currenttime - int(queue[card_id]))) + " seconds.")
             return False
         else: #Refresh time
-            print("Updating entry for " + card_id)
             queue[card_id] = str(int(time.time()))
             return True
     else: # Kort har ikke blitt sett nylig
         queue[card_id] = str(int(time.time()))
-        print ("Adding entry for " + card_id)
         return True
 
 # read_card() - reads a card and sends data to website if valid.
@@ -71,6 +87,7 @@ def read_card():
         if card.is_valid:
                 if (check_dict(str(card.value))):
                     blue_led.off()
+                    blue_led.blink(0.075,0.075,30)
                     play_tune(card.value)
                     send_coffee_data(card.value,get_timestamp())
                     print("---------------")

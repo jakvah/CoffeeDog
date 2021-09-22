@@ -50,6 +50,7 @@ flutter:
   uses-material-design: true
   assets:
     - svgs/medal.svg
+    - svgs/doggo.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

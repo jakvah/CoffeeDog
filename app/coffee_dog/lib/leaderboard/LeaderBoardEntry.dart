@@ -49,7 +49,7 @@ class LeaderBoardEntry extends StatelessWidget {
                   Row(
                     children: [
                       Padding(padding: EdgeInsets.fromLTRB(50, 15, 20, 15)),
-                      Text("name",
+                      Text(this.name,
                           style: TextStyle(
                             color: GREY_COLOR,
                             fontSize:
@@ -59,7 +59,7 @@ class LeaderBoardEntry extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text("Score",
+                      Text("${this.score}",
                           style: TextStyle(
                             color: GREY_COLOR,
                             fontSize:

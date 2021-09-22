@@ -25,7 +25,7 @@ class CoffeDog extends StatelessWidget {
     return MaterialApp(
         title: 'CoffeeDog',
         theme: ThemeData(
-          primaryColor: MAIN_COLOR,
+          primaryColor: DARK_BROWN,
           scaffoldBackgroundColor: GREY_COLOR,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.openSansTextTheme(),

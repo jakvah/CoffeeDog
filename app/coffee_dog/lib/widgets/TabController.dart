@@ -2,6 +2,7 @@ import 'package:coffee_dog/repo/mock_repo.dart';
 import 'package:coffee_dog/repo/repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../leaderboard/leaderboard.dart';
 import '../mypage.dart';
 import '../utils/constants.dart';
@@ -33,23 +34,31 @@ class _CDTabControllerState extends State<CDTabController> {
 
   @override
   Widget build(BuildContext context) {
-    var profileColor = MAIN_COLOR;
+    var profileColor = DARK_BROWN;
     var profileTextColor = WHITE_COLOR;
     var leaderboardColor = WHITE_COLOR;
     var leaderboardTextColor = SECONDARY_COLOR;
     if (this._state == TabStates.leaderboard) {
       profileColor = WHITE_COLOR;
       profileTextColor = SECONDARY_COLOR;
-      leaderboardColor = MAIN_COLOR;
+      leaderboardColor = DARK_BROWN;
       leaderboardTextColor = WHITE_COLOR;
     }
+    final String assetName = './svgs/doggo.svg';
     return Scaffold(
         backgroundColor: GREY_COLOR,
         body: Column(
           children: [
             Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
-            Text("CoffeeDog",
-                style: TextStyle(fontSize: 40, color: MAIN_COLOR)),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SvgPicture.asset(
+                assetName,
+                height: 50,
+                width: 50,
+              ),
+              Text("CoffeeDog",
+                  style: TextStyle(fontSize: 40, color: DARK_BROWN)),
+            ]),
             Padding(padding: EdgeInsets.all(5)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

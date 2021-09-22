@@ -49,134 +49,115 @@
     </div>
   </div>
 </div>
-<div class="container d-flex justify-content-center">
-  <div class="center">
-    <div class="top3">
-      <div class="two item">
-        <div class="pos">
-          2
+
+<!--Leaderboard content -->
+<div class="container d-flex justify-content-center" id="lbContent">
+  <!-- Loading circle  -->
+
+        <div class="container" style="width: 100%; text-align: center;">
+        <div class="loader loader--style2" title="1">
+            <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              width="80px" height="80px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+              <animateTransform attributeType="xml"
+                attributeName="transform"
+                type="rotate"
+                from="0 25 25"
+                to="360 25 25"
+                dur="0.6s"
+                repeatCount="indefinite"/>
+              </path>
+            </svg>            
+          </div>
         </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/men/44.jpg&#39;)"></div>
-        <div class="name">
-          Edgar Soto
-        </div>
-        <div class="score">
-          6453 <i class="fas fa-coffee"></i>
-        </div>
-      </div>
-      <div class="one item">
-        <div class="pos">
-          1 <i class="fas fa-medal" style="color:FFD700;"></i>
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/men/31.jpg&#39;)"></div>
-        <div class="name">
-          Clifford James 
-        </div>
-        <div class="score">
-          6794 <i class="fas fa-coffee"></i>
-        </div>
-      </div>
-      <div class="three item">
-        <div class="pos">
-          3
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/women/91.jpg&#39;)"></div>
-        <div class="name">
-          Nevaeh Silva
-        </div>
-        <div class="score">
-          6034 <i class="fas fa-coffee"></i>
-        </div>
-      </div>
-    </div>
-    <div class="list">
-      <div class="item">
-        <div class="pos">
-          4
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/men/88.jpg&#39;)"></div>
-        <div class="name">
-          Clayton Watson
-        </div>
-        <div class="score">
-          5980
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          5
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/women/29.jpg&#39;)"></div>
-        <div class="name">
-          Debbie Lane
-        </div>
-        <div class="score">
-          5978
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          6
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/women/85.jpg&#39;)"></div>
-        <div class="name">
-          Gabriella Steward
-        </div>
-        <div class="score">
-          5845
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          7
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/women/39.jpg&#39;)"></div>
-        <div class="name">
-          Nina Perkins
-        </div>
-        <div class="score">
-          5799
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          8
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/men/77.jpg&#39;)"></div>
-        <div class="name">
-          Dennis Henry
-        </div>
-        <div class="score">
-          5756
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          9
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/women/49.jpg&#39;)"></div>
-        <div class="name">
-          Courtney Fuller
-        </div>
-        <div class="score">
-          5713
-        </div>
-      </div>
-      <div class="item">
-        <div class="pos">
-          10
-        </div>
-        <div class="pic" style="background-image: url(&#39;https://randomuser.me/api/portraits/women/30.jpg&#39;)"></div>
-        <div class="name">
-          Joan Wood
-        </div>
-        <div class="score">
-          5674
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+<!--End of leaderboard content -->
+
+<script>
+  var leaderBoardHTML;
+setInterval(function()
+{ 
+    $.ajax({
+        type: "get",
+        url: "https://jakvah.pythonanywhere.com/get_leaderboard",
+        success:function(res)
+        {
+            leaderBoardHTML = "";
+            leaderBoardHTML += '<div class="center">';
+            leaderBoardHTML += '<div class="top3">';
+
+            leaderBoardHTML += '<div class="two item">';
+            leaderBoardHTML += '<div class="pos">' + 2 + '</div><div class="pic" style="background-image: url(&#39;https://w1.pngwing.com/pngs/386/684/png-transparent-face-icon-user-icon-design-user-profile-share-icon-avatar-black-and-white-silhouette-thumbnail.png&#39;)"></div>';
+            leaderBoardHTML += '<div class="name">' + res["scores"][1].name + '</div>';
+            leaderBoardHTML += '<div class="score">' + res["scores"][1].score + '<i class="fas fa-coffee"></i></div></div>';
+
+            leaderBoardHTML += '<div class="one item">';
+            leaderBoardHTML += '<div class="pos">' + 1 + '</div><div class="pic" style="background-image: url(&#39;https://w1.pngwing.com/pngs/386/684/png-transparent-face-icon-user-icon-design-user-profile-share-icon-avatar-black-and-white-silhouette-thumbnail.png&#39;)"></div>';
+            leaderBoardHTML += '<div class="name">' + res["scores"][0].name + '</div>';
+            leaderBoardHTML += '<div class="score">' + res["scores"][0].score + '<i class="fas fa-coffee"></i></div></div>';
+
+            leaderBoardHTML += '<div class="three item">';
+            leaderBoardHTML += '<div class="pos">' + 3 + '</div><div class="pic" style="background-image: url(&#39;https://w1.pngwing.com/pngs/386/684/png-transparent-face-icon-user-icon-design-user-profile-share-icon-avatar-black-and-white-silhouette-thumbnail.png&#39;)"></div>';
+            leaderBoardHTML += '<div class="name">' + res["scores"][2].name + '</div>';
+            leaderBoardHTML += '<div class="score">' + res["scores"][2].score + '<i class="fas fa-coffee"></i></div></div>';
+            leaderBoardHTML += '</div>'; 
+
+            leaderBoardHTML += '<div class="list">';
+
+            
+
+            
+            $.each(res["scores"],function(index,value) {
+              if (index > 2) {
+                leaderBoardHTML += '<div class="item">';
+                leaderBoardHTML += '<div class="pos">' + value.rank + '</div>';
+                leaderBoardHTML += '<div class="pic" style="background-image: url(&#39;https://w1.pngwing.com/pngs/386/684/png-transparent-face-icon-user-icon-design-user-profile-share-icon-avatar-black-and-white-silhouette-thumbnail.png&#39;)"></div>';
+                leaderBoardHTML += '<div class="name">' + value.name + '</div>';
+                leaderBoardHTML +=  '<div class="score">' + value.score + '</div></div>';        
+        
+        
+        
+              }
+            });
+
+            leaderBoardHTML += '</div>';
+            
+
+  
+        }
+    });
+    $("#lbContent").html(leaderBoardHTML);
+}, 1000);
+
+</script>
+
+
+
+
+<!--Loading circle -->
+<style type="text/css">
+  .loader{
+   margin: 0 0 2em;
+   height: 100px;
+   width: 20%;
+   text-align: center;
+   padding-top: 1em;
+   /*margin: 0 auto 1em;*/
+   display: inline-block;
+   /*vertical-align: top;*/
+ }
+ 
+ /*
+   Set the color of the icon
+ */
+ svg path,
+ svg rect{
+   fill: #6eb8f5;
+ }
+ 
+ </style>
+
+<!-- Leaderboard style-->
 <style>
     @import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,900&display=swap");
 body, html {

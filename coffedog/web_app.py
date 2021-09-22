@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*- 
 from flask import Flask, request, render_template, Markup,flash,redirect
 import requests
-from flask_cors import CORS
+#from flask_cors import CORS
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
-CORS(app)
+#CORS(app)
 NUM_TABS = 3
 
 @app.route("/")

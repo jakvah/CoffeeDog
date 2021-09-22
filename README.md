@@ -18,8 +18,14 @@ Sniffing ID cards for coffee data. Sniff sniff.
 
 
 ## Setup
+Install the dependencies by running 
 
-From the top directory, run with 
+```
+pip install -r requirements.txt
+```
+
+To launch the web app, execute the following from the top directory 
 ```
 py -m coffedog.web_app
 ```
+

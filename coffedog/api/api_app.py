@@ -1,4 +1,4 @@
-from flask import Flask, jsonify,request,redirect,flash
+from flask import Flask, jsonify
 import db_manager as dbm
 
 
@@ -34,6 +34,7 @@ def add_new_user(card_id,user_name):
         return s
 
 
+
 @app.route("/get_leaderboard",methods = ["GET"])
 def get_leaderboard():
     dataset = dbm.get_sorted_leaderboard()
@@ -47,7 +48,9 @@ def get_leaderboard():
         score_dict["rank"] = i+1
         scores_list.append(score_dict)
     obj = {"scores" : scores_list}
-    return jsonify(obj)
+    response = jsonify(obj)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 def send_coffee_data(id,timestamp):
     import requests

@@ -1,3 +1,4 @@
+import 'package:coffee_dog/coffebrake.dart';
 import 'package:coffee_dog/repo/mock_repo.dart';
 import 'package:coffee_dog/repo/repo.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +15,9 @@ class CDTabController extends StatefulWidget {
   TabStates state = TabStates.profile;
   final MyHomePage home;
   final LeaderBoardPage leaderBoard;
+  final IndoggingForm indogging = IndoggingForm(
+    repo: Repo(),
+  );
 
   CDTabController({Key? key, required this.home, required this.leaderBoard})
       : super(key: key);
@@ -90,7 +94,7 @@ class _CDTabControllerState extends State<CDTabController> {
                   controller: _pageController,
                   onPageChanged: (index) =>
                       changeTabState(TabStates.values[index]),
-                  children: [widget.home, widget.leaderBoard],
+                  children: [widget.indogging, widget.leaderBoard],
                 ))
           ],
         ));

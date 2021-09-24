@@ -1,8 +1,8 @@
 import 'package:coffee_dog/leaderboard/LeaderBoardEntry.dart';
 import 'package:coffee_dog/repo/repo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/constants.dart';
 // import 'package:coffee_dog/mock_repo.dart';
 import 'score.dart';
@@ -77,10 +77,10 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
           Text("${this._data.elementAt(0).score}"),
           Container(
             margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
+            height: 30,
+            width: 30,
             child: SvgPicture.asset(
               assetName,
-              height: 30,
-              width: 30,
             ),
             color: Colors.transparent,
           ),

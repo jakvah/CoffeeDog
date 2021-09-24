@@ -1,8 +1,13 @@
+import 'dart:math';
+
+import 'package:coffee_dog/InDogging.dart';
 import 'package:coffee_dog/leaderboard/leaderboard.dart';
+import 'package:coffee_dog/main.dart';
 import 'package:coffee_dog/mypage.dart';
+import 'package:coffee_dog/repo/repo.dart';
 import '../leaderboard/score.dart';
 
-class MockRepo {
+class MockRepo extends Repo {
   Future<MyDog> fetchDog() async {
     return MyDog("123", "Kristian", ["Calle", "Jakob", "Doggern"], 69);
   }
@@ -52,5 +57,18 @@ class MockRepo {
       });
     }
     return scoreObjects;
+  }
+
+  Future<LoginStatus> login(String cardno) async {
+    final _random = new Random();
+    int statInt = _random.nextInt(LoginStatus.values.length);
+
+    final response = {"status": statInt};
+
+    if (response["status"].runtimeType == int) {
+      int stat = response["status"]!;
+      return LoginStatus.values[stat];
+    }
+    return LoginStatus.ErrorDog;
   }
 }

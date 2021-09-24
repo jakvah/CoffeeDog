@@ -1,3 +1,5 @@
+import 'package:coffee_dog/InDogging.dart';
+import 'package:coffee_dog/main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -37,5 +39,17 @@ class Repo {
       }
       return scoreObjects;
     }
+  }
+
+  Future<LoginStatus> login(String cardno) async {
+    var response = await fetch("url");
+    if (response == null) {
+      return LoginStatus.ErrorDog;
+    }
+    if (response["status"].runtimeType == int) {
+      int stat = response["status"];
+      return LoginStatus.values[stat];
+    }
+    return LoginStatus.ErrorDog;
   }
 }

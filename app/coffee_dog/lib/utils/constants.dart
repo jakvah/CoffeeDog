@@ -14,3 +14,6 @@ const BRONZE_ISH = Color.fromRGBO(100, 50, 20, 0.3);
 
 const DARK_BROWN = Color.fromRGBO(146, 92, 55, 1);
 const LIGHT_BROWN = Color.fromRGBO(233, 213, 201, 1);
+
+
+// TODO: Make BeerDog. If condition determines colors, and logo and stuff

@@ -1,11 +1,9 @@
-import 'package:coffee_dog/coffebrake.dart';
-import 'package:coffee_dog/repo/mock_repo.dart';
+import 'package:coffee_dog/InDogging.dart';
 import 'package:coffee_dog/repo/repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import '../leaderboard/leaderboard.dart';
-import '../mypage.dart';
 import '../utils/constants.dart';
 
 enum TabStates { profile, leaderboard }
@@ -13,11 +11,8 @@ enum TabStates { profile, leaderboard }
 // ignore: must_be_immutable
 class CDTabController extends StatefulWidget {
   TabStates state = TabStates.profile;
-  final MyHomePage home;
+  final Widget home; // Either MyHomePage or LoginForm
   final LeaderBoardPage leaderBoard;
-  final IndoggingForm indogging = IndoggingForm(
-    repo: Repo(),
-  );
 
   CDTabController({Key? key, required this.home, required this.leaderBoard})
       : super(key: key);
@@ -55,10 +50,12 @@ class _CDTabControllerState extends State<CDTabController> {
           children: [
             Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SvgPicture.asset(
-                assetName,
-                height: 50,
+              Container(
                 width: 50,
+                height: 50,
+                child: SvgPicture.asset(
+                  assetName,
+                ),
               ),
               Text("CoffeeDog",
                   style: TextStyle(fontSize: 40, color: DARK_BROWN)),
@@ -94,7 +91,7 @@ class _CDTabControllerState extends State<CDTabController> {
                   controller: _pageController,
                   onPageChanged: (index) =>
                       changeTabState(TabStates.values[index]),
-                  children: [widget.indogging, widget.leaderBoard],
+                  children: [widget.home, widget.leaderBoard],
                 ))
           ],
         ));

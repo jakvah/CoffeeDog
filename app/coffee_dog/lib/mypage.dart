@@ -87,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         children: [
           RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
               text: 'Hei, ',
               style: Theme.of(context).textTheme.headline3,

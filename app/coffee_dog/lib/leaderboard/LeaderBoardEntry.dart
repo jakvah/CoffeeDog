@@ -19,6 +19,10 @@ class LeaderBoardEntry extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    String name = this.name;
+    if (name.length > 15) {
+      name = name.substring(0, 14);
+    }
     double width = MediaQuery.of(context).size.width;
     // TODO: implement build
     return Row(
@@ -48,8 +52,8 @@ class LeaderBoardEntry extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Padding(padding: EdgeInsets.fromLTRB(50, 15, 20, 15)),
-                      Text(this.name,
+                      Padding(padding: EdgeInsets.fromLTRB(50, 5, 20, 15)),
+                      Text(name,
                           style: TextStyle(
                             color: GREY_COLOR,
                             fontSize:

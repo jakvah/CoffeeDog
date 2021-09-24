@@ -18,6 +18,9 @@ void main() {
 enum LoginStatus { ErrorDog, OutDogged, InDogged, CreateDog }
 
 class LoginLocal {
+  LoginLocal() {
+    WidgetsFlutterBinding.ensureInitialized();
+  }
   Future<bool> saveUser(int user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 

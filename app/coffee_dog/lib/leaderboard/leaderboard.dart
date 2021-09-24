@@ -56,6 +56,13 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
   List<Container> makePodium(double width, double height) {
     final String assetName = './svgs/medal.svg';
 
+    String stripName(String name) {
+      if (name.length > 16) {
+        return name.substring(0, 15);
+      }
+      return name;
+    }
+
     List<Container> contList = [];
     // Have a first place
     if (this._data.length > 0) {
@@ -73,7 +80,13 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
             "1",
             style: Theme.of(context).textTheme.headline5,
           ),
-          Text("${this._data.elementAt(0).name}"),
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              style: TextStyle(color: Colors.black),
+              text: "${stripName(this._data.elementAt(0).name)}",
+            ),
+          ),
           Text("${this._data.elementAt(0).score}"),
           Container(
             margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
@@ -110,7 +123,13 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Text("${this._data.elementAt(1).name}"),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(color: Colors.black),
+                      text: "${stripName(this._data.elementAt(1).name)}",
+                    ),
+                  ),
                   Text("${this._data.elementAt(1).score}"),
                 ],
               ),
@@ -120,6 +139,7 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
     // Have a third place
     if (this._data.length > 2) {
       contList.add(Container(
+        padding: EdgeInsets.all(3),
         decoration: BoxDecoration(
             color: BRONZE_ISH,
             border: Border.all(
@@ -133,7 +153,13 @@ class _LeaderBoardState extends State<LeaderBoardPage> {
             "3",
             style: Theme.of(context).textTheme.headline5,
           ),
-          Text("${this._data.elementAt(2).name}"),
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              style: TextStyle(color: Colors.black),
+              text: "${stripName(this._data.elementAt(2).name)}",
+            ),
+          ),
           Text("${this._data.elementAt(2).score}"),
         ]),
       ));

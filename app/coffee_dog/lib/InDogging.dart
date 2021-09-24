@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:coffee_dog/main.dart';
 import 'package:coffee_dog/repo/repo.dart';
 import 'package:coffee_dog/utils/constants.dart';

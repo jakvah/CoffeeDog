@@ -27,7 +27,7 @@ class LoginLocal {
     return prefs.setInt("uid", user);
   }
 
-  Future<LoginStatus> getUser() async {
+  Future<LoginStatus> getLocalDoggingStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int? user = prefs.getInt("uid");
@@ -37,33 +37,45 @@ class LoginLocal {
 
     return LoginStatus.OutDogged;
   }
+
+  Future<int> getUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? user = prefs.getInt("uid");
+    if (user != null) {
+      return user;
+    }
+
+    return -1;
+  }
 }
 
 // ignore: must_be_immutable
 class CoffeDog extends StatefulWidget {
   // This widget is the root of the application.
   final LoginLocal localDB = LoginLocal();
+  var id = -1;
   var indogged = LoginStatus.OutDogged;
 
-  var home = MyHomePage(repo: MockRepo());
-  var leaderBoard = LeaderBoardPage(
-    repo: Repo(),
-  );
   CoffeDog({Key? key}) : super(key: key) {
     checkIndogging();
   }
 
   checkIndogging() async {
-    this.indogged = await this.localDB.getUser();
+    this.indogged = await this.localDB.getLocalDoggingStatus();
+    if (this.indogged == LoginStatus.InDogged) {
+      this.id = await this.localDB.getUser();
+    }
   }
 
   @override
-  State<StatefulWidget> createState() => __CoffeDogState(indogged);
+  State<StatefulWidget> createState() => __CoffeDogState(indogged, id);
 }
 
 class __CoffeDogState extends State<CoffeDog> {
   var _loginStatus;
-  __CoffeDogState(this._loginStatus);
+  var _id;
+  __CoffeDogState(this._loginStatus, this._id);
 
   _loginCallback(LoginStatus status) {
     if (mounted) {
@@ -75,16 +87,23 @@ class __CoffeDogState extends State<CoffeDog> {
 
   @override
   Widget build(BuildContext context) {
-    print("State: ${this._loginStatus}");
+    var leaderBoard = LeaderBoardPage(
+      repo: Repo(),
+    );
 
-    var indogging = IndoggingForm(
-        repo: MockRepo(),
-        loginCallback: _loginCallback,
-        loginStatus: widget.indogged);
-    Widget frontPage = widget.home;
+    Widget frontPage;
     if (this._loginStatus == LoginStatus.OutDogged ||
         this._loginStatus == LoginStatus.CreateDog) {
-      frontPage = indogging;
+      frontPage = IndoggingForm(
+          repo: MockRepo(),
+          loginCallback: _loginCallback,
+          loginStatus: this._loginStatus);
+      ;
+    } else {
+      frontPage = MyHomePage(
+        repo: MockRepo(),
+        id: this._id.toString(),
+      );
     }
     return MaterialApp(
         title: 'CoffeeDog',
@@ -94,7 +113,6 @@ class __CoffeDogState extends State<CoffeDog> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.openSansTextTheme(),
         ),
-        home:
-            CDTabController(home: frontPage, leaderBoard: widget.leaderBoard));
+        home: CDTabController(home: frontPage, leaderBoard: leaderBoard));
   }
 }

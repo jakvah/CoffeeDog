@@ -33,6 +33,9 @@ dependencies:
   google_fonts: ^2.1.0
   flutter_svg: ^0.22.0
   shared_preferences: ^2.0.7
+  image_cropper: ^1.4.1
+  image_picker: ^0.8.4+1
+  xfile: ^1.1.0
 
 dev_dependencies:
   flutter_test:

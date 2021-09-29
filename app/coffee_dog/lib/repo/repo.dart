@@ -1,5 +1,6 @@
 import 'package:coffee_dog/InDogging.dart';
 import 'package:coffee_dog/main.dart';
+import 'package:coffee_dog/mypage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -41,7 +42,17 @@ class Repo {
     }
   }
 
+  Future<MyDog> fetchDog(String id) async {
+    var response = await fetch("url");
+    if (response == null) {
+      return MyDog("", "", [], -1, DateTime.now());
+    } else {
+      return MyDog.fromJson(response);
+    }
+  }
+
   Future<LoginStatus> login(String cardno) async {
+    // TODO: Shareprefs set id
     var response = await fetch("url");
     if (response == null) {
       return LoginStatus.ErrorDog;

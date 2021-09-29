@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:coffee_dog/repo/mock_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -7,26 +9,31 @@ class MyDog {
   final String name;
   final List<String> friends;
   final int score;
+  final DateTime lastCup;
 
-  MyDog(this.id, this.name, this.friends, this.score);
+  MyDog(this.id, this.name, this.friends, this.score, this.lastCup);
 
   MyDog.fromJson(Map<String, dynamic> json)
       : id = json["id"],
         name = json["name"],
         friends = json["friends"],
-        score = json["score"];
+        score = json["score"],
+        lastCup = DateTime.parse(json["lastCup"]);
 }
 
 // ignore: must_be_immutable
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.repo}) : super(key: key) {
+  final MockRepo repo;
+  final String id;
+  MyHomePage({Key? key, required this.repo, required this.id})
+      : super(key: key) {
     this.fetchMyDog();
   }
 
-  final MockRepo repo;
-  MyDog me = MyDog("id", "name", [], 0);
+  MyDog me = MyDog("id", "name", [], 0, DateTime.now());
+
   Future<MyDog> fetchMyDog() async {
-    this.me = await repo.fetchDog();
+    this.me = await repo.fetchDog(this.id);
     return me;
   }
 
@@ -36,12 +43,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final MyDog me;
-  List<String> _coffeDogs = ["Jakob", "Matias", "Stian"];
+  List<String> _coffeDogs;
   int _coffeCups = 0;
   String _myName = "";
 
   RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: true);
 
   _MyHomePageState(this.me)
       : _coffeDogs = me.friends,
@@ -51,7 +58,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onRefresh() async {
     // monitor network fetch
     var newData = await widget.fetchMyDog();
-    await Future.delayed(Duration(milliseconds: 1000));
     if (mounted) {
       setState(() {
         _coffeDogs = newData.friends;
@@ -71,8 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
       for (var s in this._coffeDogs.sublist(1, this._coffeDogs.length - 1)) {
         temp += ", " + s;
       }
+      temp += " og " + this._coffeDogs.last;
     }
-    temp += " og " + this._coffeDogs.last;
+    if (this._coffeDogs.length == 1) {
+      temp = this._coffeDogs.first;
+    }
     return temp;
   }
 

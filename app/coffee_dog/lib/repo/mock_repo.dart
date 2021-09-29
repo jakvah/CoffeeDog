@@ -8,8 +8,9 @@ import 'package:coffee_dog/repo/repo.dart';
 import '../leaderboard/score.dart';
 
 class MockRepo extends Repo {
-  Future<MyDog> fetchDog() async {
-    return MyDog("123", "Kristian", ["Calle", "Jakob", "Doggern"], 69);
+  Future<MyDog> fetchDog(String id) async {
+    return MyDog(
+        "123", "Kristian", ["Calle", "Jakob", "Doggern"], 69, DateTime.now());
   }
 
   Future<List<ScoreObject>> fetchLeaderBoard() async {

@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'mypage.dart';
 import 'package:flutter/material.dart';
 import 'leaderboard/leaderboard.dart';
-import 'dart:ui';
 import 'utils/constants.dart';
 import 'widgets/TabController.dart';
 
@@ -100,7 +99,7 @@ class __CoffeDogState extends State<CoffeDog> {
           loginStatus: this._loginStatus);
       ;
     } else {
-      frontPage = MyHomePage(
+      frontPage = HomeDogPage(
         repo: MockRepo(),
         id: this._id.toString(),
       );

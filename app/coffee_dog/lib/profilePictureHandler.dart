@@ -1,32 +1,24 @@
+import 'package:coffee_dog/repo/repo.dart';
+import 'package:coffee_dog/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(new ConfigScreen());
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class ConfigScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ImageCropper',
-      theme: ThemeData.light().copyWith(primaryColor: Colors.deepOrange),
-      home: MyHomePage(
-        title: 'ImageCropper',
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  final String title;
-
-  MyHomePage({this.title});
+class ProfilePicPicker extends StatefulWidget {
+  final Repo repo;
+  ProfilePicPicker({required this.repo});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _ProfilePicPickerState createState() => _ProfilePicPickerState();
 }
 
 enum AppState {
@@ -35,33 +27,80 @@ enum AppState {
   cropped,
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ProfilePicPickerState extends State<ProfilePicPicker> {
   AppState state = AppState.free;
-  File imageFile = File("");
   ImagePicker imgPicker = ImagePicker();
+  XFile? profImage;
+  File? croppedProf;
   @override
   void initState() {
     super.initState();
     state = AppState.free;
   }
 
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localPic async {
+    final path = await _localPath;
+    return File('$path/img/proffDog.png');
+  }
+
+  _setProfilePic() async {
+    if (croppedProf != null) {
+      // open a bytestream
+      var stream = new http.ByteStream(croppedProf!.openRead());
+      stream.cast();
+      // get file length
+      var length = await croppedProf!.length();
+
+      // string to uri
+      var uri = Uri.parse("http://ip:8082/composer/predict");
+
+      // create multipart request
+      var request = new http.MultipartRequest("POST", uri);
+
+      // multipart that takes file
+      var multipartFile = new http.MultipartFile('file', stream, length,
+          filename: basename(croppedProf!.path));
+
+      // add file to multipart
+      request.files.add(multipartFile);
+
+      // send
+      var response = await request.send();
+      print(response.statusCode);
+
+      // listen for response
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
+    }
+    setState(() {
+      state = AppState.free;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Velg proilbilde"),
       ),
       body: Center(
-        child: imageFile != null ? Image.file(imageFile) : Container(),
+        child: Container(), // imageFile != null ? Image.file(imageFile!) :
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: SECONDARY_COLOR,
         onPressed: () {
           if (state == AppState.free)
             _pickImage();
           else if (state == AppState.picked)
             _cropImage();
-          else if (state == AppState.cropped) _clearImage();
+          else if (state == AppState.cropped) _setProfilePic();
         },
         child: _buildButtonIcon(),
       ),
@@ -79,10 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
       return Container();
   }
 
-  Future<Null> _pickImage() async {
-    imageFile = await File(
-        imgPicker.pickImage(source: ImageSource.gallery).toString());
-    if (imageFile != null) {
+  _pickImage() async {
+    profImage = await imgPicker.pickImage(source: ImageSource.gallery);
+    if (mounted) {
       setState(() {
         state = AppState.picked;
       });
@@ -90,8 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<Null> _cropImage() async {
-    File? croppedFile = await ImageCropper.cropImage(
-        sourcePath: imageFile.path,
+    croppedProf = await ImageCropper.cropImage(
+        sourcePath: profImage!.path,
         aspectRatioPresets: Platform.isAndroid
             ? [
                 CropAspectRatioPreset.square,
@@ -119,18 +157,11 @@ class _MyHomePageState extends State<MyHomePage> {
         iosUiSettings: IOSUiSettings(
           title: 'Cropper',
         ));
-    if (croppedFile != null) {
-      imageFile = croppedFile;
+    if (croppedProf != null) {
+      // imageFile = croppedFile;
       setState(() {
         state = AppState.cropped;
       });
     }
-  }
-
-  void _clearImage() {
-    imageFile = ;
-    setState(() {
-      state = AppState.free;
-    });
   }
 }

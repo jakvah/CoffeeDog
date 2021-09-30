@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:coffee_dog/profilePictureHandler.dart';
 import 'package:coffee_dog/repo/mock_repo.dart';
+import 'package:coffee_dog/repo/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -22,10 +24,10 @@ class MyDog {
 }
 
 // ignore: must_be_immutable
-class MyHomePage extends StatefulWidget {
+class HomeDogPage extends StatefulWidget {
   final MockRepo repo;
   final String id;
-  MyHomePage({Key? key, required this.repo, required this.id})
+  HomeDogPage({Key? key, required this.repo, required this.id})
       : super(key: key) {
     this.fetchMyDog();
   }
@@ -38,10 +40,10 @@ class MyHomePage extends StatefulWidget {
   }
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(me);
+  _HomeDogPageState createState() => _HomeDogPageState(me);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeDogPageState extends State<HomeDogPage> {
   final MyDog me;
   List<String> _coffeDogs;
   int _coffeCups = 0;
@@ -50,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
 
-  _MyHomePageState(this.me)
+  _HomeDogPageState(this.me)
       : _coffeDogs = me.friends,
         _coffeCups = me.score,
         _myName = me.name;
@@ -87,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(body: ProfilePicPicker(repo: MockRepo()));
     return Scaffold(
         body: SmartRefresher(
       controller: this._refreshController,

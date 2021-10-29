@@ -1,0 +1,40 @@
+import smtplib
+from email.mime.text import MIMEText
+from requests import get
+import urllib
+
+def wait_until_network():
+    while True:
+        try:
+            response = urllib.request.urlopen('https://api.ipify.org',timeout = 1)
+            print("Connected!")
+            return
+        except:
+            print("Could not connect.")
+            pass
+
+def send_email():
+
+    ip = get('https://api.ipify.org').content.decode('utf8')
+    print('My public IP address is: {}'.format(ip))
+
+    sender = 'admin@example.com'
+    receiver = 'info@example.com'
+
+    msg = MIMEText('Ooo heloo new IP who dis?')
+
+    msg['Subject'] = ip
+    msg['From'] = 'NabDog'
+    msg['To'] = 'Matos Patos'
+
+    user = '2db52f673b38b0'
+    password = '388abc115e91a2'
+
+    with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
+
+        server.login(user, password)
+        server.sendmail(sender, receiver, msg.as_string())
+        print("mail successfully sent")
+
+wait_until_network()
+send_email()
